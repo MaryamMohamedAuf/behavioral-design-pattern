@@ -1,0 +1,57 @@
+using System;
+
+// The Handler interface
+public interface IHandler
+{
+    void HandleRequest(string request);
+}
+
+// Concrete handler 1
+public class ConcreteHandler1 : IHandler
+{
+    public void HandleRequest(string request)
+    {
+        if (request == "A")
+        {
+            Console.WriteLine("ConcreteHandler1 is handling the request: " + request);
+        }
+        else
+        {
+            Console.WriteLine("ConcreteHandler1 cannot handle the request.");
+        }
+    }
+}
+
+// Concrete handler 2
+public class ConcreteHandler2 : IHandler
+{
+    public void HandleRequest(string request)
+    {
+        if (request == "B")
+        {
+            Console.WriteLine("ConcreteHandler2 is handling the request: " + request);
+        }
+        else
+        {
+            Console.WriteLine("ConcreteHandler2 cannot handle the request.");
+        }
+    }
+}
+
+// Client code
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create the chain of handlers
+        IHandler handler1 = new ConcreteHandler1();
+        IHandler handler2 = new ConcreteHandler2();
+
+        // Set the next handler
+        handler1.HandleRequest("A"); // ConcreteHandler1 handles the request
+        handler1.HandleRequest("B"); // ConcreteHandler1 cannot handle, so ConcreteHandler2 handles
+        handler1.HandleRequest("C"); // Neither handler can handle the request
+
+        Console.ReadLine();
+    }
+}
